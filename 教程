@@ -1,0 +1,61 @@
+使用前准备：
+0/把包loam_livox-master放进~/catkin_ws/src
+
+1/
+
+sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-tf ros-kinetic-message-filters ros-kinetic-image-transport
+
+2/ 安装Ceres Solver
+
+sudo apt-get install cmake
+
+sudo apt-get install libgoogle-glog-dev
+
+sudo apt-get install libatlas-base-dev
+
+sudo apt-get install libeigen3-dev
+
+sudo apt-get install libsuitesparse-dev
+
+
+找到bag文件夹的包
+tar zxf ceres-solver-1.14.0.tar.gz
+
+mkdir ceres-bin
+
+cd ceres-bin
+
+cmake ../ceres-solver-1.14.0
+
+make -j8
+
+make test
+
+make install
+
+
+3/
+    cd ~/catkin_ws/src
+
+    cd ../
+
+    catkin_make
+
+    source ~/catkin_ws/devel/setup.bash
+
+
+4/跑包
+
+roslaunch loam_livox rosbag_mid100.launch
+
+rosbag play mid100_example.bag
+
+5/建图
+rosbag record /laser_cloud_surround
+
+等待包记录完成
+#xxx是新录的包
+rosrun pcl_ros bag_to_pcd xxxx.bag /laser_cloud_surround pcd
+
+6/打开pcd文件夹，地图是最后那个pcd
+
